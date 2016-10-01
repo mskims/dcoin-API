@@ -5,4 +5,7 @@
 거래내역 확인, 송금, 대출, 대출내역 확인, 유저 인증 및 토큰 발급
 
 # 제작
-서울디지텍고 김민석
+http://kimminseok.info
+
+# 문의
+admin@kimminseok.info
