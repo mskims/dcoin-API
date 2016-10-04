@@ -53,6 +53,6 @@ function view($path){
 	$service->render(__VIEWS__."/".$path.".php");
 	return $service;
 }
-function json($data, $pretty=null){
+function json($data, $pretty=false){
 	return json_encode($data, $pretty ? JSON_PRETTY_PRINT : null);
 }
