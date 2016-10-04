@@ -1,4 +1,5 @@
 <?php
+include_once __DIR__."/errors/codes.php";
 
 // dotenv
 $dotenv = new Dotenv\Dotenv(__ROOT__);
@@ -26,6 +27,19 @@ function lastIndex(){
 
 
 // route
+function service(){
+	global $route;
+	return $route->service();
+};
+function req(){
+	global $route;
+	return $route->request();
+};
+function res(){
+	global $route;
+	return $route->response();
+};
+
 function controller($path){
 	$controller = "";
 
@@ -38,21 +52,49 @@ function controller($path){
 	$class = '\\dcoin\\controllers\\'.$controller;
 	return new $class;
 }
-function service(){
-	global $route;
-	return $route->service();
-};
 
 
-function layout($path, $service){
-	$service->layout(__VIEWS__."/".$path.".php");
-	return $service;
-}
-function view($path){
+
+function layout($path){
 	$service = service();
-	$service->render(__VIEWS__."/".$path.".php");
+	$service->layout(__VIEWS__."layouts/".$path.".layout.php");
 	return $service;
 }
-function json($data, $pretty=false){
-	return json_encode($data, $pretty ? JSON_PRETTY_PRINT : null);
+function view($path, $argus=[]){
+	$service = service();
+	$service->render(__VIEWS__."/".$path.".php", $argus);
+	// return $service;
+}
+function json($data, $pretty=true){
+	$options = $pretty ? JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE : JSON_UNESCAPED_UNICODE;
+	if(is_null($data) || $data==false){
+		$data = ["error"=>"Data not found"];
+	}
+	return json_encode($data, $options);
+}
+
+// error
+function error($error_code){
+	$res = res();
+	$req = req();
+	$url = strtok($req->server()->get("HTTP_REFERER"), "?")."?redirect_url={$req->redirect_url}&error_code={$error_code}";
+	$res->redirect($url)->send();
+}
+function errorstr($codes){
+	global $errorCodeSet;
+	$res = [];
+	$codes = explode("|", $codes);
+	foreach($codes as $code){
+		$res[] = $errorCodeSet[$code];
+	}
+	return $res;
+}
+
+
+// enc
+
+function encrypt($str){
+	$encrypted = env("SHA512_SALT");
+	$encrypted = hash("sha512", str_replace(":value", $str, $encrypted));
+	return $encrypted;
 }
