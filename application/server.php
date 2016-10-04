@@ -1,5 +1,6 @@
 <?php
 // settings
+session_start();
 ini_set("display_errors", 1);
 include_once __ROOT__."/vendor/autoload.php";
 
