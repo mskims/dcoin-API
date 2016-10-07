@@ -6,7 +6,9 @@ Class Database {
 	private static $db = null;
 	private function init(){
 		global $databaseSet;
+		if(self::$db === null){
 		self::$db = new \PDO("mysql:host={$databaseSet['host']};dbname={$databaseSet['dbname']}", $databaseSet["user"], $databaseSet["password"], $databaseSet["pdo_setting"]);
+		}
 	}
 	public function sql($sql, $p=null){
 		self::init();
