@@ -22,4 +22,14 @@ Class UserController {
 	public function transfer($req, $res){
 		// @todo
 	}
+
+
+	public function updateCode($user_idx){
+		$new_code = randomstr(255);
+		sql("UPDATE member SET code=? WHERE idx=?", [
+				$new_code,
+				$user_idx
+			]);
+		return $new_code;
+	}
 }
