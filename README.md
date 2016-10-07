@@ -12,8 +12,8 @@
 ## Get Code
 ```
 GET http://coin.digitech.wiki/auth/login
-  ?app_idx={$app_idx}
-  &redirect_url={$redirect_url}"
+  app_idx={$app_idx},
+  redirect_url={$redirect_url}
 ```
 returns ``{redirect_url}?code={CODE}``
 
