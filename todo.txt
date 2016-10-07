@@ -19,3 +19,29 @@
 /api/user/history 서버에 토큰, 유저IDX 전송
 - scope 테이블에 토큰에서 가져온 appid와 SCOPE가 history인 row가 있는지 확인
 ㄴ 거래내역 정보 리턴
+
+
+
+        new file:   application/.htaccess
+        new file:   application/controllers/AppController.php
+        new file:   public/images/logo-2.png
+        new file:   public/images/logo-md.png
+        new file:   todo.txt
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   application/controllers/ApiController.php
+        modified:   application/controllers/AuthController.php
+        modified:   application/controllers/UserController.php
+        modified:   application/resource/database/config.php
+        modified:   application/resource/database/database.php
+        modified:   application/resource/errors/codes.php
+        modified:   application/resource/helper.php
+        modified:   application/route/route.php
+        modified:   application/server.php
+        modified:   application/views/auth/login.php
+        modified:   application/views/auth/login_process.php
+        deleted:    application/views/layouts/main.layout
+        modified:   application/views/layouts/main.layout.php
