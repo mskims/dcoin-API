@@ -8,8 +8,35 @@
 * 001 토큰 불일치
 * 002 ID/PW 불일치
 
-# 제작
-http://kimminseok.info
+# flow
+## Get Code
+```
+GET http://coin.digitech.wiki/auth/login
+  ?app_idx={$app_idx}
+  &redirect_url={$redirect_url}"
+```
+returns ``{redirect_url}?code={CODE}``
 
-# 문의
-admin@kimminseok.info
+## Get AccessToken
+```
+GET/POST http://coin.digitech.wiki/auth/access_token
+  app_idx={app_idx},
+  app_secret_code={app_secret_code},
+  code={code},
+  expires=60*60*24
+```
+returns 
+```
+{
+  "access_token": "ACCESS-_TOKEN"
+}
+```
+OR 
+```
+{
+  "error": {
+    "type": "error_type",
+    "message": "Error message"
+  }
+}
+```
