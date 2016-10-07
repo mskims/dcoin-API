@@ -12,8 +12,8 @@
 ## Get Code
 ```
 GET http://coin.digitech.wiki/auth/login
-  app_idx={$app_idx},
-  redirect_url={$redirect_url}
+  app_idx={app_idx},
+  redirect_url={redirect_url}
 ```
 returns ``{redirect_url}?code={CODE}``
 
@@ -28,10 +28,29 @@ GET/POST http://coin.digitech.wiki/auth/access_token
 returns 
 ```
 {
-  "access_token": "ACCESS-_TOKEN"
+  "access_token": "Y89uJjP-PRQCFs1Q7jOmde03XK77ms45o2qNiPBJqsmGbgelYSKKGUPvdYlSKsTMwYDoebNrPdK6WX..."
 }
 ```
-OR 
+
+## Get AccessToken info
+```
+GET http://coin.digitech.wiki/api/token/info
+  access_token={access_token}
+```
+returns
+```
+{
+    "user_idx": "1000000001",
+    "scopes": [
+        "public_info",
+        "transfer_history"
+    ],
+    "created_at": "1475809152",
+    "expires_at": "1477809152"
+}
+```
+
+## When response error
 ```
 {
   "error": {
