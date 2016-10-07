@@ -24,7 +24,15 @@ function rcount($sql,$p=null){
 function lastIndex(){
 	return \dcoin\database\Database::lastIndex();
 }
-
+function transaction(){
+       return \dcoin\database\Database::transaction();
+}
+function rollBack(){
+       return \dcoin\database\Database::rollBack();
+}
+function commit(){
+       return \dcoin\database\Database::commit();
+}
 
 // route
 function service(){
@@ -54,7 +62,11 @@ function controller($path){
 }
 
 
-
+function title($str){
+	$service = service();
+	$service->paegTitle = $str;
+	return $service;
+}
 function layout($path){
 	$service = service();
 	$service->layout(__VIEWS__."layouts/".$path.".layout.php");
@@ -80,6 +92,10 @@ function error($error_code){
 	$url = strtok($req->server()->get("HTTP_REFERER"), "?")."?redirect_url={$req->redirect_url}&error_code={$error_code}";
 	$res->redirect($url)->send();
 }
+function errorJSON($type, $message="error"){
+	$rs = ["error"=>["type"=>$type, "message"=>$message]];
+	return json($rs);
+}
 function errorstr($codes){
 	global $errorCodeSet;
 	$res = [];
@@ -98,3 +114,22 @@ function encrypt($str){
 	$encrypted = hash("sha512", str_replace(":value", $str, $encrypted));
 	return $encrypted;
 }
+
+// etc
+
+function randomstr($length){
+	$base = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789-_";
+	$baselen = strlen($base);
+	$str = "";
+	for($i=0;$i<$length;$i++){
+		$str .= $base[rand(0, $baselen-1)];
+	}
+	return $str;
+}
+function isExist($needle, $table, $column){
+	$rs = fetch("SELECT COUNT(*) AS count FROM {$table} WHERE {$column}=?", [$needle]);
+	return $rs["count"] > 0;
+}
+
+
+// verifiy
