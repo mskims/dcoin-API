@@ -29,4 +29,13 @@ Class Database {
 		self::init();
 		return self::$db->lastInsertId();
 	}
+	public function transaction(){
+
+	}
+	public function rollBack(){
+
+	}
+	public function commit(){
+		
+	}
 }

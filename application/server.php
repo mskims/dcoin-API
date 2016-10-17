@@ -2,6 +2,7 @@
 // settings
 session_start();
 ini_set("display_errors", 1);
+date_default_timezone_set("Asia/Seoul");
 include_once __ROOT__."/vendor/autoload.php";
 
 // functions

@@ -56,6 +56,7 @@ function controller($path){
 	$controller = $path[count($path)-1];
 
 	$path = implode("/", $path);
+	
 	require_once(__CNTS__.$path.".php");
 	$class = '\\dcoin\\controllers\\'.$controller;
 	return new $class;
@@ -64,7 +65,7 @@ function controller($path){
 
 function title($str){
 	$service = service();
-	$service->paegTitle = $str;
+	$service->pageTitle = $str;
 	return $service;
 }
 function layout($path){
@@ -77,10 +78,24 @@ function view($path, $argus=[]){
 	$service->render(__VIEWS__."/".$path.".php", $argus);
 	// return $service;
 }
-function json($data, $pretty=true){
+function filterJSON($data, $allowed){
+	return pureJSON($data, $allowed);
+}
+function pureJSON($data, $filter=false){
+	return json($data, true, false, $filter);
+}
+function json($data, $pretty=true, $errors=true, $filter=false){
 	$options = $pretty ? JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE : JSON_UNESCAPED_UNICODE;
 	if(is_null($data) || $data==false){
-		$data = ["error"=>"Data not found"];
+		if($errors === true){
+			return errorJSON("data_not_found", "일치하는 데이터가 없습니다.");	
+		}else{
+			return;	
+		}
+	}
+
+	if($filter !== false){
+		$data = array_intersect_key($data, array_flip($filter));
 	}
 	return json_encode($data, $options);
 }
@@ -89,12 +104,27 @@ function json($data, $pretty=true){
 function error($error_code){
 	$res = res();
 	$req = req();
-	$url = strtok($req->server()->get("HTTP_REFERER"), "?")."?redirect_url={$req->redirect_url}&error_code={$error_code}";
+	// $url = strtok($req->server()->get("HTTP_REFERER"), "?")."?redirect_url={$req->redirect_url}&error_code={$error_code}";
+	$url = strtok($req->server()->get("HTTP_REFERER"), "?")."?redirect_url={$req->redirect_url}";
+	$url .= isset($req->hash) ? "&hash={$req->hash}" : "";
+	$url .= "&error_code={$error_code}";
 	$res->redirect($url)->send();
 }
+function errorView($type, $message="error"){
+	title("오류");
+	layout("main");
+	view("error", errorArray($type, $message));
+	exit();
+}
 function errorJSON($type, $message="error"){
+
 	$rs = ["error"=>["type"=>$type, "message"=>$message]];
-	return json($rs);
+	echo json($rs);
+	exit();
+}
+function errorArray($type, $message){
+	$rs = ["error"=>["type"=>$type, "message"=>$message]];
+	return $rs;
 }
 function errorstr($codes){
 	global $errorCodeSet;

@@ -3,7 +3,8 @@ namespace dcoin\controllers;
 
 Class TokenController {
 	public function getAccessTokenInfo($access_token){
-		$rs = fetch("SELECT * FROM tokens WHERE access_token=?", [$access_token]);
+		$rs = fetch("SELECT tokens.*, apps.name AS app_name FROM tokens LEFT JOIN apps ON tokens.app_idx = apps.idx WHERE tokens.access_token=?", [$access_token]);
+		if($rs){ $rs["scopes"] = explode("|", $rs["scopes"]); }
 		return $rs ? $rs : false;
 	}
 

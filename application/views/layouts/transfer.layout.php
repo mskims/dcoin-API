@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="wrap">
-    <header><img src="/public/images/logo-md.png" alt=""></header>
+    <header><img src="http://static1.textcraft.net/data1/4/8/48f2b7d59430cff90c9abb89f6653b961e37aa3cda39a3ee5e6b4b0d3255bfef95601890afd80709da39a3ee5e6b4b0d3255bfef95601890afd8070974dd369b504ea3a8dc200c335cfe8070.png" alt=""></header>
     <div class="view">
         <?=$this->yieldView()?>    
     </div>
