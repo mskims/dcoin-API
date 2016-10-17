@@ -15,9 +15,9 @@ ID ``01012341234``
 PW ``1234``
 
 # flow
-## Get Code
+## Get Code (Auth)
 ```
-GET http://coin.digitech.wiki/auth/login
+GET https://coin.digitech.wiki/auth/login
   app_idx={app_idx},
   redirect_url={redirect_url}
 ```
@@ -25,22 +25,20 @@ returns ``{redirect_url}?code={CODE}``
 
 ## Get AccessToken
 ```
-GET/POST http://coin.digitech.wiki/auth/access_token
+GET/POST https://coin.digitech.wiki/auth/access_token
   app_idx={app_idx},
-  app_secret_code={app_secret_code},
+  client_secret={app_secret_code},
   code={code},
   expires=60*60*24
 ```
 returns 
 ```
-{
-  "access_token": "Y89uJjP-PRQCFs1Q7jOmde03XK77ms45o2qNiPBJqsmGbgelYSKKGUPvdYlSKsTMwYDoebNrPdK6WX..."
-}
+access_token=Y89uJjP-PRQCFs1Q7jOmde03XK77ms45o2qNiPBJqsmGbgelYSKKGUPvdYlSKsTMwYDoebNrPdK6WX...
 ```
 
 ## Get AccessToken info
 ```
-GET http://coin.digitech.wiki/api/token/info
+GET https://coin.digitech.wiki/api/token/info
   access_token={access_token}
 ```
 returns
@@ -56,7 +54,32 @@ returns
 }
 ```
 
-## When response error
+## Transfer
+### Create Transfer
+```
+GET https://coin.digitech.wiki/api/transfer/create
+  user_idx={user_idx},
+  access_token={access_token},
+  user_to_account_number={user_to_account_number},
+  money={money},
+  redirect_url={redirect_url}
+```
+returns
+```
+{
+  "hash": "s1Q7jOmde03XPRQCFs1Q7jOmde03XK77ms45o2qNiPBJqsmGbgelYSKKGUPvdYlSKsTMwYDoebNrPdK6WX.."
+}
+```
+### Auth Transfer
+```
+GET https://coin.digitech.wiki/auth/transfer
+  hash={hash},
+  redirect_url={redirect_url}
+```
+returns ``{redirect_url}?hash={hash}``
+
+
+## On Error
 ```
 {
   "error": {
