@@ -8,6 +8,12 @@
 * 001 토큰 불일치
 * 002 ID/PW 불일치
 
+# 샘플 사이트
+http://bet.kimminseok.info
+
+ID ``01012341234``
+PW ``1234``
+
 # flow
 ## Get Code
 ```
