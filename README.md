@@ -14,6 +14,9 @@ http://bet.kimminseok.info
 ID ``01012341234``
 PW ``1234``
 
+ID ``01012345678``
+PW ``1234``
+
 # flow
 ## Get Code (Auth)
 ```
@@ -77,6 +80,58 @@ GET https://coin.digitech.wiki/auth/transfer
   redirect_url={redirect_url}
 ```
 returns ``{redirect_url}?hash={hash}``
+
+### Get Transfer History
+```
+GET https://coin.digitech.wiki/api/me/transfer_history
+  from={from[MIN=0]},
+  limit={limit[MAX=10]},
+  user_idx={user_idx},
+  access_token={access_token}
+```
+returns
+```
+[
+  {
+    "idx": "1",
+    "transfer_idx": "114",
+    "income": "false",
+    "money": "123",
+    "balance": "6617",
+    "type": "계좌이체",
+    "type_memo": "홍길동",
+    "memo": "",
+    "created_at": "1476667158",
+    "from": {
+      "name": "길쑨이",
+      "account_number": "01012341234"
+    },
+    "to": {
+      "name": "홍길동",
+      "account_number": "01012345678"
+    }
+  },
+  {
+    "idx": "2",
+    "transfer_idx": "113",
+    "income": "false",
+    "money": "123",
+    "balance": "6740",
+    "type": "계좌이체",
+    "type_memo": "홍길동",
+    "memo": "",
+    "created_at": "1476666666",
+    "from": {
+      "name": "길쑨이",
+      "account_number": "01012341234"
+    },
+    "to": {
+      "name": "홍길동",
+      "account_number": "01012345678"
+    }
+  }
+]
+```
 
 
 ## On Error
