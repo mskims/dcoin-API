@@ -1,3 +1,6 @@
+# author
+[@mskims](http://github.com/mskims)
+
 # dcoin-API
 디지텍코인 (이하 D코인)의 오픈 API입니다.
 
