@@ -1,5 +1,5 @@
-# author
-[@mskims](http://github.com/mskims)
+# Warning!
+고등학교 재학 시절 진행한 프로젝트이기 때문에, 코드가 굉장히 난해합니다. 이해 부탁드립니다.
 
 # dcoin-API
 디지텍코인 (이하 D코인)의 오픈 API입니다.
